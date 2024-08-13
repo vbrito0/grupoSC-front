@@ -1,0 +1,63 @@
+<div>
+    <button (click)="setCurrentSection('login')">Login</button>
+    <button (click)="setCurrentSection('criar')">Criar Cliente</button>
+    <button (click)="setCurrentSection('excluir')">Excluir Cliente</button>
+    <button (click)="setCurrentSection('buscar')">Buscar Cliente</button>
+    <button (click)="setCurrentSection('listar')">Listar Clientes</button>
+  </div>
+  
+  <div *ngIf="currentSection === 'login'">
+    <h2>Login</h2>
+    <input [(ngModel)]="usuario" placeholder="Usuário">
+    <input [(ngModel)]="senha" placeholder="Senha" type="password">
+    <button (click)="login()">Entrar</button>
+  </div>
+  
+  <div *ngIf="currentSection === 'clientes'">
+    <h2>Bem-vindo, {{ username }}!</h2>
+  </div>
+  
+  <div *ngIf="currentSection === 'criar'">
+    <h2>Criar Cliente</h2>
+    <input [(ngModel)]="cliente.cnpj" placeholder="CNPJ">
+    <input [(ngModel)]="cliente.razaoSocial" placeholder="Razão Social">
+    <input [(ngModel)]="cliente.usuario" placeholder="Usuário">
+    <input [(ngModel)]="cliente.senha" placeholder="Senha" type="password">
+    <select [(ngModel)]="cliente.status">
+      <option value="ATIVO">ATIVO</option>
+      <option value="INATIVO">INATIVO</option>
+    </select>
+    <button (click)="criarCliente()">Criar</button>
+  </div>
+  
+  <div *ngIf="currentSection === 'excluir'">
+    <h2>Excluir Cliente</h2>
+    <input [(ngModel)]="cnpjExcluir" placeholder="CNPJ">
+    <button (click)="excluirCliente()">Excluir</button>
+  </div>
+  
+  <div *ngIf="currentSection === 'buscar'">
+    <h2>Buscar Cliente</h2>
+    <input [(ngModel)]="cnpjBuscar" placeholder="CNPJ">
+    <button (click)="buscarCliente()">Buscar</button>
+    <div *ngIf="clienteBuscado">
+      <p>CNPJ: {{ clienteBuscado.cnpj }}</p>
+      <p>Razão Social: {{ clienteBuscado.razaoSocial }}</p>
+      <p>Usuário: {{ clienteBuscado.usuario }}</p>
+      <p>Status: {{ clienteBuscado.status }}</p>
+    </div>
+  </div>
+  
+  <div *ngIf="currentSection === 'listar'">
+    <h2>Listar Clientes</h2>
+    <button (click)="listarClientes()">Atualizar Lista</button>
+    <ul>
+      <li *ngFor="let cliente of clientes">
+        <p>CNPJ: {{ cliente.cnpj }}</p>
+        <p>Razão Social: {{ cliente.razaoSocial }}</p>
+        <p>Usuário: {{ cliente.usuario }}</p>
+        <p>Status: {{ cliente.status }}</p>
+      </li>
+    </ul>
+  </div>
+  
